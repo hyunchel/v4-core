@@ -915,10 +915,9 @@ contract PoolManagerTest is Test, Deployers, TokenFixture, GasSnapshot, IERC1155
         donateRouter.donate(key, 100, 100, ZERO_BYTES);
     }
 
-    function testDonateFailsIfNoLiquidity() public {
-        uint160 sqrtPriceX96 = TickMath.MIN_SQRT_RATIO;
-        // vm.assume(sqrtPriceX96 >= TickMath.MIN_SQRT_RATIO);
-        // vm.assume(sqrtPriceX96 < TickMath.MAX_SQRT_RATIO);
+    function testDonateFailsIfNoLiquidity(uint160 sqrtPriceX96) public {
+        vm.assume(sqrtPriceX96 >= TickMath.MIN_SQRT_RATIO);
+        vm.assume(sqrtPriceX96 < TickMath.MAX_SQRT_RATIO);
 
         PoolKey memory key =
             PoolKey({currency0: currency0, currency1: currency1, fee: 100, hooks: IHooks(address(0)), tickSpacing: 10});
